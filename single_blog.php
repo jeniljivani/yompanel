@@ -10,16 +10,16 @@
 		$id = 0;
 	}
 
-		$prev = "select * from `posts` order by `id` desc limit $id,1";
+		$prev = "select * from `posts` where `status`=1 order by `id` desc limit $id,1";
 		$prev=mysqli_query($con,$prev);
 		$single=mysqli_fetch_assoc($prev);
 		$post_id = @$single['id'];
 
-		$prevc="select * from `posts`";
+		$prevc="select * from `posts` where `status`=1";
 		$prevc=mysqli_query($con,$prevc);
 		$num_rec = mysqli_num_rows($prevc);
 
-		$post_select="select * from `posts` order by `id` desc limit 3";
+		$post_select="select * from `posts` where `status`=1 order by `id` desc limit 3";
 		$post_res=mysqli_query($con,$post_select);
 
 
@@ -96,14 +96,14 @@
 								<a href="javascript:void(0)" class="side-menu-button"><i class="fa fa-bars"></i></a>
 							</div>
 							<nav class="main-navigation pull-right hidden-xs hidden-sm">
-								<ul>
+							<ul>
 									<li><a href="index.php">Home</a></li>
-									<!-- <li><a href="#" class="has-submenu">Pages</a>
+									<li><a href="#" class="has-submenu">Pages</a>
 										<ul class="sub-menu">
-											<li><a href="services.html">Services</a></li>
-											<li><a href="clients.html">Clients</a></li>
+											<li><a href="services.php">Services</a></li>
+											<!-- <li><a href="clients.html">Clients</a></li> -->
 										</ul>
-									</li> -->
+									</li>
 									<li><a href="#" class="has-submenu">Blog</a>
 										<ul class="sub-menu">
 											<li><a href="blog.php">Blog Classic</a></li>

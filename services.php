@@ -1,10 +1,17 @@
+<?php 
+
+	$con = mysqli_connect("localhost","root","","adminpanel");
+
+	$offer_select = "select * from `offer` where `status`=1 order by `id` desc";
+	$offer_res = mysqli_query($con , $offer_select);
+
+ ?>
+
 <!DOCTYPE html>
 <!--[if IE 9]>
 <html class="ie ie9" lang="en-US">
 <![endif]-->
 <html lang="en-US">
-
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -42,13 +49,13 @@
 					<div id="main-header" class="main-header header-sticky">
 						<div class="inner-header clearfix">
 							<div class="logo">
-								<a href="index.php">YOM</a>
+								<a href="index-2.html">YOM</a>
 							</div>
 							<div class="header-right-toggle pull-right hidden-md hidden-lg">
 								<a href="javascript:void(0)" class="side-menu-button"><i class="fa fa-bars"></i></a>
 							</div>
 							<nav class="main-navigation pull-right hidden-xs hidden-sm">
-						<ul>
+							<ul>
 									<li><a href="index.php">Home</a></li>
 									<li><a href="#" class="has-submenu">Pages</a>
 										<ul class="sub-menu">
@@ -69,6 +76,7 @@
 									</li>
 									<li><a href="contact.php">Contact</a></li>
 								</ul>
+							</nav>
 						</div>
 					</div>
 				</header>
@@ -76,54 +84,42 @@
 				<section class="page-heading wow fadeIn" data-wow-duration="1.5s" style="background-image: url(files/images/01-heading.jpg)">
 					<div class="container">
 						<div class="page-name">
-							<h1>Contact Us</h1>
+							<h1>Our Services</h1>
 							<span>Lovely layout of heading</span>
 						</div>
 					</div>
 				</section>
 
-				<section class="contact-map-wrapper">
+				<section class="services on-services green">
 					<div class="container">
-						<div class="section-heading">
-							<h2>Find Us On Map</h2>
-							<div class="section-dec"></div>
-						</div>
 						<div class="row">
-							<div class="col-sm-12">
-								<div class="contact-map" style="height: 380px;"></div>
+							<div class="section-heading">
+								<h2>What We Offer</h2>
+								<div class="section-dec"></div>
 							</div>
-						</div>
+							<?php  
+							while($offer = mysqli_fetch_assoc($offer_res)) 
+							{								
+?>
+							<div class="service-item col-md-4">
+								<span><i class="<?php echo @$offer['icon']; ?>"></i></span>
+								<div class="tittle"><h3><?php echo @$offer['title']; ?></h3></div>
+								<p><?php echo @$offer['description']; ?></p>
+							</div>				
+<?php  
+							}
+?>
+						</div>					
 					</div>
 				</section>
 
-
-				<section class="contact-us">
+				<section class="call-to-action-2">
 					<div class="container">
-						<div class="section-heading">
-							<h2>Send Us A Message</h2>
-							<div class="section-dec"></div>
-						</div>
-						<div class="send-message col-sm-12">
-							<form id="contact_form" action="#" method="POST" enctype="multipart/form-data">
-								<div class=" col-md-4 col-sm-4 col-xs-6">
-									<input type="text" class="blog-search-field" name="s" placeholder="Your name..." value="">
-								</div>
-								<div class="col-md-4 col-sm-4 col-xs-6">
-									<input type="text" class="blog-search-field" name="s" placeholder="Your email..." value="">
-								</div>
-								<div class="col-md-4 col-sm-4 col-xs-12">
-									<input type="text" class="subject" name="s" placeholder="Subject..." value="">
-								</div>
-								<div class="col-md-12 col-sm-12">
-									<textarea id="message" class="input" name="message" placeholder="Message..."></textarea>
-								</div>
-								<div class="submit-coment col-md-12">
-									<div class="btn-black">
-										<a href="#">Send now</a>
-									</div>
-								</div>
-							</form>		
-						</div>
+					<div class="left-text hidden-xs">
+						<h4>Know Us Better, Read This</h4>
+						<p><em>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi ut explicabo magni sapiente.</em><br><br>Inventore at quia, vel in repellendus, cumque dolorem autem ad quidem mollitia porro blanditiis atque rerum debitis eveniet nostrum aliquam. Sint aperiam expedita sapiente amet officia quis perspiciatis adipisci, iure dolorem esse exercitationem!</p>
+					</div>
+						<div class="right-image hidden-xs"></div>
 					</div>
 				</section>
 
@@ -205,6 +201,7 @@
 	  </div>
       <div class="two spacing"></div>
     </footer>
+
 				<a href="#" class="go-top"><i class="fa fa-angle-up"></i></a>
 
 			</div>
@@ -259,29 +256,6 @@
 	<script type="text/javascript" src="files/js/plugins.js"></script>
 	<script type="text/javascript" src="files/js/custom.js"></script>
 
-	<!-- Google Map -->
-    <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
-    <script src="files/js/jquery.gmap3.min.js"></script>
-
-	<!-- Google Map Init-->
-    <script type="text/javascript">
-        jQuery(function($){
-            $('.contact-map').gmap3({
-                marker:{
-                    address: '48.777300, 9.179664' 
-                },
-                    map:{
-                    options:{
-                    zoom: 15,
-                    scrollwheel: false,
-                    streetViewControl : true
-                    }
-                }
-            });
-        });
-    </script>
-
 </body>
 
-<!-- Mirrored from torchtemplates.net/html/YOM/contact.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 22 Jun 2015 08:35:04 GMT -->
 </html>

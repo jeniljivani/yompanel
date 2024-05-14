@@ -17,28 +17,45 @@
     $password = $_POST['password'];
     $image = $_FILES['image']['name'];
 
-      if($image=="") 
-      {
-        $imagename = $data['image'];
+    if($image=="") 
+    {
+      $imagename = @$data['image'];
+    }
+    else
+    { 
+      if(!$image=="") {
+        unlink("image/admin/".$data['image']);
       }
-      else
-      {
-        $imagename = rand(1,10000).$image;
-        $path = "image/admin/".$imagename;
-        move_uploaded_file($_FILES['image']['tmp_name'], $path);
-      }
+      $imagename = rand(1,10000).$image;
+      $path = "image/admin/".$imagename;
+      move_uploaded_file($_FILES['image']['tmp_name'], $path);
+    }
 
 
     $select ="select * from `login` where `email`='$email'";
     $select_res = mysqli_query($con, $select);
+    $sel = mysqli_fetch_assoc($select_res);
+    // echo $sel['id'];die();
     $rec = mysqli_num_rows($select_res);
     
 
 
     if(isset($_GET['id'])) {
-      $update = "update `login` set `name`='$name',`email`='$email',`password`='$password',`image`='$imagename' where `id`=".$_GET['id'];
-      mysqli_query($con, $update);
-      header("location:view_admin.php");      
+      if($rec == 0) {
+        $update = "update `login` set `name`='$name',`email`='$email',`password`='$password',`image`='$imagename' where `id`=".$_GET['id'];
+        mysqli_query($con, $update);
+        header("location:view_admin.php");              
+      }
+      else {
+        if($sel['id']==$id)
+        {
+          $update = "update `login` set `name`='$name',`password`='$password',`image`='$imagename' where `id`=".$_GET['id'];
+          mysqli_query($con, $update);
+          header("location:view_admin.php");      
+        }
+        $error = "this is alrady exist...!";
+
+      }
     }
     else {
       if($rec==0) {
@@ -102,7 +119,8 @@
                     <label for="exampleInputEmail1">Email address</label>
                     <input type="email" name="email"  value="<?php echo @$data['email']; ?>" class="form-control" id="email" placeholder="Enter email">
                     <h6>enter your email</h6>
-                    <h6 style="color: red"><?php echo @$error; ?></h6>
+                    <h5 style="color: red"><?php echo @$error; ?></h5>
+                    <!-- <?php echo $sel['id']; ?> -->
 
                   </div>
                   <div class="form-group">
@@ -114,11 +132,11 @@
                     <label for="exampleInputFile">File input</label>
                     <div class="input-group">
                         <input type="file" name="image" value="<?php echo @$data['image']; ?>" class="custom-file-input" id="img">
-                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                         <h6>enter your image</h6>                      
+                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                     </div>
                     
-                    <img style="width: 100px" id="fimg"> src="image/admin/<?php echo @$data['image']; ?>">
+                    <img style="width: 100px" id="fimg" src="image/admin/<?php echo @$data['image']; ?>">
                   </div>                 
                 </div>
                 <!-- /.card-body -->
@@ -161,14 +179,16 @@
         return false;
       }
 
-      var img = $('#image').val();
-      // var im = $('#fimg').attr('src');
-      // $('#image')
-
-      if(img == '') {
-        $('#image').siblings('h6').css('display','inline');
-        return false;
+      var image = $('#img').val();
+      var im = $('#fimg').attr('src');
+      if(im!="image/admin/") {
+        $('#img').val(im);
       }
+      if(image == '') {
+         $('#img').next('h6').css('display','inline');
+        return false;
+     }
+
 
     })
 

@@ -3,7 +3,6 @@
    session_start();
    $con = mysqli_connect("localhost","root","","adminpanel");
 
-   
    if(@isset($_SESSION['username']))
    {
       header("location:dashboard.php");

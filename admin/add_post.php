@@ -91,15 +91,16 @@
               <!-- form start -->
               <form  method="post" enctype="multipart/form-data" id="frm">
                 <div class="card-body">
-                  <div class="form-group">
+                 <div class="form-group">
                     <label for="exampleInputFile">File input</label>
                     <div class="input-group">
-                        <input type="file" name="image" value="<?php echo @$data['image'] ?>"  class="custom-file-input" id="image">
+                        <input type="file" name="image" value="<?php echo @$data['image']; ?>" class="custom-file-input" id="img">
+                        <h6>enter your image</h6>                      
                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                        <h6>enter your image</h6>                        
                     </div>
-                      <img style="width: 100px" src="image/latest_posts/<?php echo @$data['image']; ?>">
-                  </div> 
+                    
+                    <img style="width: 100px" id="fimg" src="image/latest_posts/<?php echo @$data['image']; ?>">
+                  </div>
                   <div class="form-group">
                     <label for="exampleInputEmail1">Titel</label>
                     <input type="text" name="titel" value="<?php echo @$data['titel'] ?>"  class="form-control" id="title" placeholder="Enter titel">
@@ -160,11 +161,17 @@
 <script>
     
     $('#frm').submit(function(){
-      var img = $('#image').val();
-      if(img == '') {
-        $('#image').siblings('h6').css('display','inline');
-        return false;
+     
+      var image = $('#img').val();
+      var im = $('#fimg').attr('src');
+      if(im!="image/admin/") {
+        $('#img').val(im);
       }
+      if(image == '') {
+         $('#img').next('h6').css('display','inline');
+        return false;
+     }
+
       var title = $('#title').val();
       if(title == ''){
         // alert("please enter name");

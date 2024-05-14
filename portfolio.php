@@ -64,14 +64,14 @@
 								<a href="javascript:void(0)" class="side-menu-button"><i class="fa fa-bars"></i></a>
 							</div>
 							<nav class="main-navigation pull-right hidden-xs hidden-sm">
-								<ul>
+							<ul>
 									<li><a href="index.php">Home</a></li>
-									<!-- <li><a href="#" class="has-submenu">Pages</a>
+									<li><a href="#" class="has-submenu">Pages</a>
 										<ul class="sub-menu">
-											<li><a href="services.html">Services</a></li>
-											<li><a href="clients.html">Clients</a></li>
+											<li><a href="services.php">Services</a></li>
+											<!-- <li><a href="clients.html">Clients</a></li> -->
 										</ul>
-									</li> -->
+									</li>
 									<li><a href="#" class="has-submenu">Blog</a>
 										<ul class="sub-menu">
 											<li><a href="blog.php">Blog Classic</a></li>
